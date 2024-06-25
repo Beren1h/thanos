@@ -1,0 +1,1 @@
+namespace Thanos.Common.Datastore;

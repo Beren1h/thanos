@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{516636E7-6C27-4585-BECA-7BB2AF72B6E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "thanos.api", "src\api\thanos.api.csproj", "{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6CA30421-E411-4D1F-BF0B-40A09E8FC6EB} = {516636E7-6C27-4585-BECA-7BB2AF72B6E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49F74162-2FC8-432B-A24E-AC2406BF2342}
+	EndGlobalSection
+EndGlobal
