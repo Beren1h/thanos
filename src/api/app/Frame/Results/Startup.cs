@@ -1,13 +1,13 @@
 using Thanos.Frame.Startup;
 
-namespace Thanos.Common.Datastore;
+namespace Thanos.Frame.Results;
 
 public class Startup : IAddToBuilder
 {
     public void Add(WebApplicationBuilder builder)
     {
         builder.Services
-            .AddSingleton<Gateway>()
+            .AddSingleton<Builder>()
             ;
     }
 }

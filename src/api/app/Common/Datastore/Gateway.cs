@@ -1,38 +1,44 @@
+using System.Linq.Expressions;
 using LiteDB;
-using Microsoft.Extensions.Options;
+using Thanos.Common.Datastore.Extensions;
 
 namespace Thanos.Common.Datastore;
 
 public class Gateway(
-    IOptions<Settings.Database> databaseSettings    
+    IOptions<Settings.Database> databaseSettings
 ){
     private readonly Settings.Database _databaseSettings = databaseSettings.Value;
-
-    public List<Event> Stream(string transactionId)
+    
+    public void Append<T>(T poco)
     {
-        List<Event> stream = [];
-
-        using(var db = new LiteDatabase(_databaseSettings.Path))
+        using (var db = new LiteDatabase(_databaseSettings.Path))
         {
-            var collection = db.GetCollection<Event>("events");
-            
-            stream = collection
-                .Query()
-                .Where(e => e.StreamId == transactionId)
-                .ToList()
-                ;
+            db.GetCollection<T>(poco.GetCollectionName()).Insert(poco);
         };
-
-        return stream;        
     }
 
-    public void Append(Event @event)
+    public List<T> Get<T>()
     {
-        using(var db = new LiteDatabase(_databaseSettings.Path))
+        var poco = Activator.CreateInstance<T>();
+        
+        using (var db = new LiteDatabase(_databaseSettings.Path))
         {
-            var collection = db.GetCollection<Event>("events");
-            @event.Timestamp = DateTime.UtcNow;
-            var stream = collection.Insert(@event);
+            return db.GetCollection<T>(poco.GetCollectionName())
+                .Query()
+                .ToList();
+        };
+    }
+
+    public List<T> Get<T>(Expression<Func<T, bool>> clause)
+    {
+        var poco = Activator.CreateInstance<T>();
+
+        using (var db = new LiteDatabase(_databaseSettings.Path))
+        {
+            return db.GetCollection<T>(poco.GetCollectionName())
+                .Query()
+                .Where(clause)                
+                .ToList();
         };
     }
 }
