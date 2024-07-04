@@ -10,6 +10,8 @@ public class Validator : AbstractValidator<Validator.Model>
     {
         // RuleFor(m => m.Date)
         //     .IsValidDateOnly(nameof(Model.Date));
+        RuleFor(m => m.Request.ChronoTag)
+            .IsValidDateOnly(nameof(Model.Request.ChronoTag));
 
         RuleFor(m => m.Request.Tags)
             .MustBeInList(ContextKeys.TAGS, nameof(Model.Request.Tags));

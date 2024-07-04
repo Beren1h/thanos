@@ -1,3 +1,4 @@
+using System.Globalization;
 using Thanos.Common.Datastore;
 using Thanos.Frame.Results.Extensions;
 
@@ -16,8 +17,22 @@ public class CreateTransaction (
 
         var result = _resultBuilder.Build(() => {
 
+            var chronoTag = DateOnly.Parse(context.Request.ChronoTag);
+
+            var year = chronoTag.Year;
+            var month = chronoTag.Month;
+            var calendar = new CultureInfo("en-US").Calendar;
+            var week = calendar.GetWeekOfYear(chronoTag.ToDateTime(TimeOnly.Parse("12:00 AM")), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+
+            // var x = context.Request.Date.HasValue ? context.Request.Date.Value.ToString("yyyy-MM-dd") : null;
+            // var orderedTags = context.Request.Tags.Order();
+            // var tagline = string.Join("@", orderedTags);
+
             var transaction = new Transaction {
-                Date = context.Request.Date,
+                Year = year,
+                Month = month,
+                Week = week,
+                Date = context.Request.Date.HasValue ? context.Request.Date.Value : null,
                 Amount = context.Request.Amount,
                 Tags = context.Request.Tags
             };

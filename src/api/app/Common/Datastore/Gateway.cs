@@ -23,6 +23,7 @@ public class Gateway(
         
         using (var db = new LiteDatabase(_databaseSettings.Path))
         {
+
             return db.GetCollection<T>(poco.GetCollectionName())
                 .Query()
                 .ToList();
@@ -37,7 +38,7 @@ public class Gateway(
         {
             return db.GetCollection<T>(poco.GetCollectionName())
                 .Query()
-                .Where(clause)                
+                .Where(clause)
                 .ToList();
         };
     }

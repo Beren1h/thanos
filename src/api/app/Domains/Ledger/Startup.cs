@@ -15,6 +15,7 @@ public class Startup : IAddToBuilder, IUseWithApp
 
         builder.Services
             .AddSingleton<CreateResponse>()
+            .AddSingleton<RunQuery>()
             ;
     }
 
