@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Transactions;
 
 namespace Thanos.Domains.Ledger;
 
@@ -16,9 +15,56 @@ public class RunQuery (
 
         var result = _resultBuilder.Build(() => {
 
-            var date = new DateOnly(2024,06,24);
-            var calendar = new CultureInfo("en-US").Calendar;
-            var week = calendar.GetWeekOfYear(date.ToDateTime(TimeOnly.Parse("12:00 AM")), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+            var chrono = context.Request.ChronoId.Split("-").ToList();
+
+            IEnumerable<Datastore.Transaction> transactions = [];
+            switch (chrono.Count)
+            {
+                case 1:
+                    var year = int.Parse(chrono[0]);
+                    //transactions = _datastore.Get<Datastore.Transaction>(t => t.Year == int.Parse(chrono[0]));
+                    transactions = _datastore.Get<Datastore.Transaction>(t => t.Year == year);
+                break;
+                case 2:
+                    year = int.Parse(chrono[0]);
+                    var month = int.Parse(chrono[1]);
+                    transactions = _datastore.Get<Datastore.Transaction>(t => t.Year == year && t.Month == month);
+                break;
+                case 3:
+                    var date = DateOnly.Parse(context.Request.ChronoId);
+                    var calendar = new CultureInfo("en-US").Calendar;
+                    var week = calendar.GetWeekOfYear(date.ToDateTime(TimeOnly.Parse("12:00 AM")), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+                    transactions = _datastore.Get<Datastore.Transaction>(t => t.Year == date.Year && t.Week == week);
+                break;
+            }
+            
+            var tags = transactions
+                .SelectMany(t => t.Tags)
+                .Distinct()
+                .Order()
+                .AsEnumerable();
+           
+            var summations = new Dictionary<string, decimal>();
+
+            foreach(var tag in tags)
+            {
+                var matches = transactions
+                    .Where(t => t.Stamp != "forecast")
+                    .Where(t => t.Tags.Contains(tag));
+                    
+                var sums = matches.Select(m => m.Amount);
+                decimal sum = 0;
+                foreach(var amount in sums)
+                {
+                    sum += amount;
+                }
+                summations.Add(tag, sum);
+            }
+
+            int x = 1;
+            //var date = new DateOnly(2024,06,24);
+            //var calendar = new CultureInfo("en-US").Calendar;
+            //var week = calendar.GetWeekOfYear(date.ToDateTime(TimeOnly.Parse("12:00 AM")), CalendarWeekRule.FirstDay, DayOfWeek.Monday);
             // Expression<Func<Datastore.Transaction, bool>> clause;
 
             // var tagline = string.Join("@", context.Request.Tags.Order());

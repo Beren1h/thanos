@@ -5,6 +5,8 @@ public class Transaction
     public int Year { get; set; }
     public int Month { get; set; }
     public int Week { get; set; }
+    public string Stamp { get; set; }
+    public string Note { get; set; }
     public decimal Amount { get; set; }
     public IEnumerable<string> Tags { get; set; }
 }

@@ -1,7 +1,6 @@
 namespace Thanos.Domains.Ledger;
 
 public record Request (
-    DateOnly? Start,
-    DateOnly? End,
+    string ChronoId,
     IEnumerable<string> Tags
 );

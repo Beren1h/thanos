@@ -7,7 +7,7 @@ public static class Extensions
         return poco switch
         {
             Tag => Collections.TAGS,
-            Switch => Collections.SWITCHES,
+            Account => Collections.ACCOUNTS,
             Transaction => Collections.TRANSACTIONS,
             _ => throw new Exception("invalid collection"),
         };

@@ -14,6 +14,18 @@ public static class Extensions
 
     public static ValidationContext<T> Add<T> (
         this ValidationContext<T> context,
+        IEnumerable<Datastore.Account> accounts
+    ){
+        context.RootContextData.Add (
+            ContextKeys.ACCOUNTS,
+            accounts.Select(t => t.Value)
+        );
+
+        return context;
+    }
+
+    public static ValidationContext<T> Add<T> (
+        this ValidationContext<T> context,
         IEnumerable<Datastore.Tag> tags
     ){
         context.RootContextData.Add (

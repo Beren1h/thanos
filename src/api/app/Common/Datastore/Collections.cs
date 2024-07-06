@@ -10,6 +10,6 @@ public struct Collection
 public static class Collections
 {
     public static string TAGS => "tags";
-    public static string SWITCHES => "switches";
+    public static string ACCOUNTS => "accounts";
     public static string TRANSACTIONS => "transactions";
 }

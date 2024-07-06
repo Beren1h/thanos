@@ -3,20 +3,25 @@ using FluentValidation.Results;
 
 namespace Thanos.Common.Validation.Rules;
 
-public static class StringIsValidaDateOnly
+public static class StampIsValid
 {
-    public static IRuleBuilder<T, string> IsValidDateOnly<T> (
+    public static IRuleBuilder<T, string> IsValidStamp<T> (
         this IRuleBuilder<T, string> builder,
         string propertyName
     ){
         return builder
             .Custom((value, context) => {
 
+                if (string.IsNullOrEmpty(value))
+                {
+                    return;
+                }
+
                 if (!DateOnly.TryParse(value, out var date))
                 {
                     context.AddFailure(new ValidationFailure {
-                        ErrorCode = "invalid-date",
-                        ErrorMessage = "value cannot be converted to DateOnly type",
+                        ErrorCode = "invalid-stemp",
+                        ErrorMessage = "stamp is invalid",
                         CustomState = new Dictionary<string, object>() {
                             { "property", propertyName }
                         }
