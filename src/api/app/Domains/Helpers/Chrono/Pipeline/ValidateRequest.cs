@@ -2,10 +2,9 @@ using FluentValidation;
 using Thanos.Frame.Results.Extensions;
 using Thanos.Frame.Validation.Extensions;
 
-namespace Thanos.Domains.Transactions.Create;
+namespace Thanos.Domains.Helpers.Chrono;
 
 public class ValidateRequest (
-    Datastore.Gateway _datastore,
     IValidator<Validator.Model> _validator,
     FrameResults.Builder _resultBuilder
 ){
@@ -13,13 +12,8 @@ public class ValidateRequest (
     {
         var result = _resultBuilder.Build(() => {
 
-            var tags = _datastore.Get<Datastore.Tag>();
-            var accounts = _datastore.Get<Datastore.Account>();
-
             var validationContext = new Validator.Model(context.Request)
                 .Build()
-                .Add(tags)
-                .Add(accounts)
                 ;
 
             var validationResult = _validator.Validate(validationContext);

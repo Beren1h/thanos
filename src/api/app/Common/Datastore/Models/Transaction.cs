@@ -3,6 +3,7 @@ namespace Thanos.Common.Datastore;
 public class Transaction
 {
     public int Year { get; set; }
+    public string Account { get; set; }
     public int Month { get; set; }
     public int Week { get; set; }
     public string Stamp { get; set; }

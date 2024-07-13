@@ -5,4 +5,5 @@ public static class Tags
     public static string TAGS => "tags";
     public static string TRANSACTIONS => "transactions";
     public static string LEDGER => "ledger";
+    public static string CHRONO => "chrono";
 }

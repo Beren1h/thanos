@@ -1,7 +1,7 @@
 using Thanos.Frame.Results.Extensions;
 using Thanos.Frame.Validation.Extensions;
 
-namespace Thanos.Domains.Ledger;
+namespace Thanos.Domains.Helpers.Chrono;
 
 public class CreateResponse (
     FrameResults.Builder _resultBuilder

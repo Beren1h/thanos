@@ -61,7 +61,7 @@ public class RunQuery (
                 summations.Add(tag, sum);
             }
 
-            int x = 1;
+            context.HandlingResult.Resource = summations;
             //var date = new DateOnly(2024,06,24);
             //var calendar = new CultureInfo("en-US").Calendar;
             //var week = calendar.GetWeekOfYear(date.ToDateTime(TimeOnly.Parse("12:00 AM")), CalendarWeekRule.FirstDay, DayOfWeek.Monday);

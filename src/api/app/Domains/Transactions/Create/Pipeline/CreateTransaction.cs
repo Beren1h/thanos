@@ -22,6 +22,8 @@ public class CreateTransaction (
             var transaction = new Transaction {
                 Year = chronoId.Year,
                 Month = chronoId.Month,
+                Account = context.Request.Account,
+                Note = context.Request.Note,
                 Stamp = string.IsNullOrEmpty(context.Request.Stamp) ? "forecast" : context.Request.Stamp,
                 Week = new CultureInfo("en-US").Calendar
                     .GetWeekOfYear(chronoId.ToDateTime(TimeOnly.Parse("12:00 AM")),

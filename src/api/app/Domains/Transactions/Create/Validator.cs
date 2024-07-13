@@ -8,24 +8,17 @@ public class Validator : AbstractValidator<Validator.Model>
 {
     public Validator()
     {
-        // RuleFor(m => m.Date)
-        //     .IsValidDateOnly(nameof(Model.Date));
         RuleFor(m => m.Request.Stamp)
             .IsValidStamp(nameof(Model.Request.Stamp));
 
         RuleFor(m => m.Request.Tags)
             .MustBeInList(ContextKeys.TAGS, nameof(Model.Request.Tags));
-        // var valueName = nameof(Model.Value);
 
-        // RuleFor(m => m.Value)
-        //     .HasValue(valueName)
-        //     .IsNotInList(ContextKeys.TAGS, valueName);
+        RuleFor(m => new List<string>{m.Request.Account})
+            .MustBeInList(ContextKeys.ACCOUNTS, nameof(Model.Request.Account));
     }
 
     public record Model (
         Request Request
-    ){
-        //public string Date => Request?.Date;
-        //public IEnumerable<string> Tags => Request?.Tags;
-    };
+    );
 }
