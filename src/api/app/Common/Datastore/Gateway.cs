@@ -17,6 +17,17 @@ public class Gateway(
         };
     }
 
+    public bool Delete<T>(string id)
+    {
+        var poco = Activator.CreateInstance<T>();
+        var objectId = new ObjectId(id);
+        
+        using (var db = new LiteDatabase(_databaseSettings.Path))
+        {
+            return db.GetCollection<T>(poco.GetCollectionName()).Delete(objectId);
+        };        
+    }
+
     public List<T> Get<T>()
     {
         var poco = Activator.CreateInstance<T>();

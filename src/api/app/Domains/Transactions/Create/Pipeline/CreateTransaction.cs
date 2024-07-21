@@ -1,5 +1,4 @@
-using System.Globalization;
-using Thanos.Common.Datastore;
+using Thanos.Common;
 using Thanos.Frame.Results.Extensions;
 
 namespace Thanos.Domains.Transactions.Create;
@@ -19,17 +18,18 @@ public class CreateTransaction (
 
             var chronoId = DateOnly.Parse(context.Request.ChronoId);
 
-            var transaction = new Transaction {
+            var transaction = new Datastore.Transaction {
                 Year = chronoId.Year,
                 Month = chronoId.Month,
                 Account = context.Request.Account,
                 Note = context.Request.Note,
                 Stamp = string.IsNullOrEmpty(context.Request.Stamp) ? "forecast" : context.Request.Stamp,
-                Week = new CultureInfo("en-US").Calendar
-                    .GetWeekOfYear(chronoId.ToDateTime(TimeOnly.Parse("12:00 AM")),
-                        CalendarWeekRule.FirstDay,
-                        DayOfWeek.Monday
-                     ),
+                Week = chronoId.FindWeek(),
+                // Week = new CultureInfo("en-US").Calendar
+                //     .GetWeekOfYear(chronoId.ToDateTime(TimeOnly.Parse("12:00 AM")),
+                //         CalendarWeekRule.FirstDay,
+                //         DayOfWeek.Monday
+                //      ),
                 Amount = context.Request.Amount,
                 Tags = context.Request.Tags
             };
