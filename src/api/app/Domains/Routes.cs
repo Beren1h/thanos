@@ -10,4 +10,6 @@ public static class Routes
     public const string ACCOUNTS = $"{VERSION}/accounts";
     public const string TRANSACTIONS = $"{VERSION}/transactions";
     public const string LEDGER = $"{VERSION}/ledger";
+    public const string FORECASTS = $"{VERSION}/forecasts";
+    public const string FORECASTS_COMPARE = $"{FORECASTS}/compare";
 }

@@ -8,5 +8,8 @@ public class Startup : IAddToBuilder
     {
         builder.Services
             .Configure<Database>(builder.Configuration.GetSection(nameof(Database)));
+        
+        builder.Services
+            .Configure<Forecasts>(builder.Configuration.GetSection(nameof(Forecasts)));
     }
 }

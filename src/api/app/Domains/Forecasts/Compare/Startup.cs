@@ -1,7 +1,7 @@
 using FluentValidation;
 using Thanos.Frame.Startup;
 
-namespace Thanos.Domains.Ledger;
+namespace Thanos.Domains.Forecasts.Compare;
 
 public class Startup : IAddToBuilder, IUseWithApp
 {
@@ -17,8 +17,9 @@ public class Startup : IAddToBuilder, IUseWithApp
         builder.Services
             .AddSingleton<ValidateRequest>()
             .AddSingleton<CreateResponse>()
-            .AddSingleton<RunQuery>()
-            .AddSingleton<FindTotal>()
+            .AddSingleton<ReadForecast>()
+            .AddSingleton<ReadTransactions>()
+            .AddSingleton<RunComparison>()
             ;
     }
 
